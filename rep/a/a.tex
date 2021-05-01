@@ -1,0 +1,26 @@
+\documentclass[12pt, a4paper, simple]{eskdtext}
+
+\usepackage{../_STYLES/title_variables}
+\usepackage{../_STYLES/eskd_variables}
+\usepackage{../_STYLES/code}
+\usepackage{hyperref}
+
+% Графа 1 (наименование изделия/документа)
+\ESKDcolumnI{\ESKDfontIII\titlePageTopic\\Текст программы}
+
+% Графа 2 (обозначение документа)
+% AA.BBB.CCCCCC-DD EE FF
+\ESKDsignature{КР.ПО4.\titlePageStudentCreditCard-0\titlePageNumberWork~12~00}
+% AA - тип работы
+% BBB - группа
+% СССССС - номер зачётки
+% DD - номер работы
+% EE - тип документа
+% FF - версия документа
+
+\begin{document}
+    \begin{ESKDtitlePage}
+        \input{../_INCLUDES/a/titlePage.tex}
+    \end{ESKDtitlePage}
+    \input{../_INCLUDES/a/content.tex}
+\end{document}
