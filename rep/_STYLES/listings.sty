@@ -8,7 +8,7 @@
 % \lstnewenvironment{mylst}{
     \lstset{ % string literal style
         backgroundcolor=\color{white},      % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-        basicstyle=\ttfamily\small,         % the size of the fonts that are used for the code
+        basicstyle=\ttfamily\scriptsize,    % the size of the fonts that are used for the code
         breakatwhitespace=true,             % sets if automatic breaks should only happen at whitespace
         breaklines=true,                    % sets automatic line breaking
         captionpos=t,                       % sets the caption-position to bottom
@@ -133,4 +133,10 @@
 {
     title=Листинг: Out \lstname,            % show the filename of files included with \lstinputlisting; also try caption instead of title
     rulecolor=\color{green},                % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+}
+
+\lstdefinelanguage{empty}
+{
+    captionpos=none,                    % sets the caption-position to bottom
+    rulecolor=\color{blue},                  % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
 }
