@@ -9,9 +9,13 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import tensorflow
 from tensorflow.keras.datasets import mnist
 from tensorflow import keras
 from tensorflow.keras.layers import Dense, Flatten
+
+print(f'TensorFlow verion : {tensorflow.__version__}')
+print(f'Keras verion      : {keras.__version__}')
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
@@ -22,10 +26,10 @@ x_test = x_test / 255
 y_train_cat = keras.utils.to_categorical(y_train, 10)
 y_test_cat = keras.utils.to_categorical(y_test, 10)
 
-# отображение первых 200 изображений из обучающей выборки
-plt.figure(figsize=(10,10)) # размер в дюймах
-for i in range(200):
-    plt.subplot(10,20,i+1)  # картинки 10 по строке и 20 по столбцу
+# отображение первых 20*24=480 изображений из обучающей выборки
+plt.figure(figsize=(10,14)) # размер в дюймах
+for i in range(600):
+    plt.subplot(20,30,i+1)  # картинки 20 по строке и 24 по столбцу
     plt.xticks([])          # не печатать оси по x
     plt.yticks([])          # не печатать оси по y
     plt.title(y_train[i])   # печатать в заголовке картинки цифру
@@ -66,7 +70,7 @@ model = keras.Sequential([
 
 # Распечатаем сводку по модели, чтобы получить представление о модели в целом
 print('Печатаем информацию о модели')
-print(model.summary())      # вывод структуры НС в консоль
+model.summary()      # вывод структуры НС в консоль
 print('Информацию о модели распечатана\n')
 
 # = = = = = Компиляция НС с оптимизацией
@@ -90,8 +94,8 @@ model.fit(
     validation_split=0.2    # разбиение обучающей выборки и проверочной 0.2 = 20% обучающей выборки для валидации
 )
 
-# Возвращает значение потерь и значения показателей для модели в тестовом режиме.
-# Оценить качество обучения можно следующим образом:
+# Возвращает значение потерь и значения показателей для модели
+# Оцениваем качество обучения на тестовой выборке
 model.evaluate(x_test, y_test_cat)
 
 def print_info_about_image_by_index(n):
@@ -102,9 +106,7 @@ def print_info_about_image_by_index(n):
 
   # Метод model.predict возвращает список списков (массив массивов)
   res = model.predict(x)
-  print(f'Десять выходных значений: {res}')
-  print(f'Распознанная цифра (максимальное значение под индексом): {np.argmax(res)}')
-  print()
+  plt.title(f'Распознанная цифра : {np.argmax(res)}')
   plt.imshow(x_test[n], cmap=plt.cm.binary)
   plt.show()
 
@@ -128,18 +130,17 @@ print(f'Что должно быть    : {y_test[:37]}')
 
 # Выделение неверных вариантов
 mask = pred == y_test
-print(f'Маска 10 элементов  : {mask[:10]}')
 x_false = x_test[~mask]
 p_false = pred[~mask]
 print(f'Размерность x_false : {x_false.shape}')
 print(f'Размерность p_false : {p_false.shape}')
 
-# Вывод первых 200 неверных результатов
+# Вывод первых 243 неверных результатов
 plt.figure(figsize=(10,10)) # размер в дюймах
-for i in range(200):
-    plt.subplot(10,20,i+1)  # расположить картинки в порядке 10 на 20
+for i in range(243):
+    plt.subplot(13,20,i+1)  # расположить картинки в 13x20
     plt.xticks([])          # не выводить оси по x
     plt.yticks([])          # не выводить оси по y
     plt.title(p_false[i])   # печать в заголовок картинки цифру
-    plt.imshow(x_false[i], cmap=plt.cm.binary) # печатает в пустую раску картинку
+    plt.imshow(x_false[i], cmap=plt.cm.binary) # печатает в рамку
 plt.show()                  # напечатать картинку
