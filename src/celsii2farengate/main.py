@@ -1,12 +1,18 @@
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
+# = = = = = библиотеки = = = = =
+
+# При запуске программы TensorFlow 2+ пытается запустить GPU
+# Нам нужен CUDA для GPU TensorFlow
+# Чтобы не выводились предупреждения при запуске программы
+# пропишем две строчки:
+#import os
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
 
 import numpy
 import matplotlib.pyplot
 import tensorflow
 
-c = numpy.array([-40, -10, 0, 8, 15, 22, 38])
-f = numpy.array([-40, 14, 32, 46, 59, 72, 100])
+c = numpy.array( [-40, -10,  0,  8, 15, 22,  38] )  # градусы цельсий
+f = numpy.array( [-40,  14, 32, 46, 59, 72, 100] )  # градусы фаренгейт
 
 model = tensorflow.keras.Sequential()
 
@@ -29,12 +35,18 @@ history = model.fit(
     epochs=500,
     verbose=0
 )
-
 print("Обучение завершено")
 
-print( model.predict([100, 101, 102]) )
-print( model.get_weights() )
+mySample = [100, 101, 102]
+print(f'Прогноз при выборке : {mySample}')
+print(f'Результат           : {model.predict(mySample)}')
+print()
+
+print(f'Веса модели         : {model.get_weights()}')
 
 matplotlib.pyplot.plot(history.history['loss'])
 matplotlib.pyplot.grid(True)
+matplotlib.pyplot.ylabel('Ошибка')
+matplotlib.pyplot.xlabel('Итерации')
+matplotlib.pyplot.title('Зависимость ошибки от итераций')
 matplotlib.pyplot.show()
