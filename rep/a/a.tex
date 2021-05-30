@@ -3,6 +3,7 @@
 \usepackage{../_STYLES/title_variables}
 \usepackage{../_STYLES/eskd_variables}
 \usepackage{../_STYLES/listings}
+\usepackage{../_STYLES/tableOfContent}
 \usepackage{hyperref}
 
 % Графа 1 (наименование изделия/документа)
@@ -22,5 +23,10 @@
     \begin{ESKDtitlePage}
         \input{../_INCLUDES/a/titlePage.tex}
     \end{ESKDtitlePage}
+
+     % Содержание
+    \tableofcontents
+    \newpage
+
     \input{../_INCLUDES/a/content.tex}
 \end{document}
