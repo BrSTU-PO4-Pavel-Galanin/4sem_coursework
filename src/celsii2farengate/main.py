@@ -4,8 +4,8 @@
 # Нам нужен CUDA для GPU TensorFlow
 # Чтобы не выводились предупреждения при запуске программы
 # пропишем две строчки:
-#import os
-#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
 
 import numpy
 import matplotlib.pyplot
