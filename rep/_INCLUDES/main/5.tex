@@ -2,6 +2,11 @@
 
 \subsection{Подбор шага для оптимизатора Adam}
 
+\underline{Ожидаемый результат}:
+подборка шага для наилутшей точности распознавания рукописной цифры.
+
+\underline{Описнание}:
+
 При компилировании модели можно выбрать оптимизатор. В ходе курсовой работы выбран оптимизатор Adam.
 
 \begin{lstlisting}[language=Python]
@@ -20,10 +25,25 @@
     )
 \end{lstlisting}
 
-Результаты точность при выборе шага для оптимизатора Adam приведены в
-таблеце~\textbf{\ref{tab:5_adam_step} (стр. \pageref{tab:5_adam_step})}.
+\underline{Машина тестирования}:
 
-\begin{table}[h]\footnotesize
+\begin{table}[htbp]
+    \centering
+    \caption{Конфигурация машины}
+    \label{tab:5_adam_step_machine}
+    \begin{tabular}{|l|l|}
+        \hline
+        OS                      & Windows 10 Home                                   \\  \hline
+        Processor               & AMD Ryzen 3 3250U with Radeon Graphics 2.60 GHz   \\  \hline
+        Installed memory (RAM)  & 4 GB                                              \\  \hline
+        System type             & 64-bit OS, x64-based processor                    \\  \hline
+    \end{tabular}
+\end{table}
+
+\underline{Полученный результат}:
+
+\begin{table}[!htbp]\footnotesize
+    \centering
     \caption{Точность распознавания в зависимости от шага для алгоритма Adam}
     \label{tab:5_adam_step}
     \begin{tabular}{|l|*{10}{|l}||l|}
