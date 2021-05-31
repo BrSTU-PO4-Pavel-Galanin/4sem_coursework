@@ -50,18 +50,12 @@ Jupyter Notebook - это удобно, но пользуя веб версие�
     \item numpy - для создания массивов
     \item matplotlib.pyplot - для рисования графиков и картинок
     \item tensorflow - фреймворк
-    \item tensorflow.keras - подключение библиотеки keras
-    \item tensorflow.keras.layers - для слоёв Flatten и Dense
-    \item tensorflow.keras.datasets - для базы данных mnist
 \end{enumerate}
 
 \begin{lstlisting}[language=Python,]
     import numpy as np
     import matplotlib.pyplot as plt
     import tensorflow
-    from tensorflow.keras.datasets import mnist
-    from tensorflow import keras
-    from tensorflow.keras.layers import Dense, Flatten
 \end{lstlisting}
 
 
@@ -77,7 +71,7 @@ Jupyter Notebook - это удобно, но пользуя веб версие�
 \underline{Возвращаемые данные}: кортедж кортеджей.
 
 \begin{lstlisting}[language=Python,]
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    (x_train, y_train), (x_test, y_test) = tensorflow.keras.datasets.mnist.load_data()
 \end{lstlisting}
 
 Где <<\verb|x_train|>> - изображения цифр обучающей выборки.
@@ -144,8 +138,8 @@ Jupyter Notebook - это удобно, но пользуя веб версие�
 \underline{Возвращаемые данные}: кортедж кортеджей.
 
 \begin{lstlisting}[language=Python,]
-    y_train_cat = keras.utils.to_categorical(y_train, 10)
-    y_test_cat = keras.utils.to_categorical(y_test, 10)
+    y_train_cat = tensorflow.keras.utils.to_categorical(y_train, 10)
+    y_test_cat = tensorflow.keras.utils.to_categorical(y_test, 10)
 \end{lstlisting}
 
 
@@ -199,10 +193,10 @@ Flatten - создает слой, который будет брать знач
 Dense - создаёт слой, который связывает нейронны предыдущего слоя с текущим.
 
 \begin{lstlisting}[language=Python,]
-    model = keras.Sequential([
-        Flatten(input_shape=(28, 28, 1)),
-        Dense(128, activation='relu'),
-        Dense(10, activation='softmax')
+    model = tensorflow.keras.Sequential([
+        tensorflow.keras.layers.Flatten(input_shape=(28, 28, 1)),
+        tensorflow.keras.layers.Dense(128, activation='relu'),
+        tensorflow.keras.layers.Dense(10, activation='softmax')
     ])
 \end{lstlisting}
 
@@ -238,7 +232,8 @@ Dense - создаёт слой, который связывает нейрон�
 
 \begin{lstlisting}[language=Python,]
     model.compile(
-        optimizer='adam',
+        #optimizer='adam',
+        optimizer=tensorflow.keras.optimizers.Adam(0.001),
         loss='categorical_crossentropy',
         metrics=['accuracy']
     )
@@ -316,10 +311,10 @@ Dense - создаёт слой, который связывает нейрон�
 
 \begin{lstlisting}[language=Python,]
     def print_info_about_image_by_index(n):
-        x = np.expand_dims( x_test[n], axis=0 )
+        x = numpy.expand_dims( x_test[n], axis=0 )
         res = model.predict(x)
         print(f'Десять выходных значений: {res}')
-        print(f'Распознанная цифра : {np.argmax(res)}')
+        print(f'Распознанная цифра : {numpy.argmax(res)}')
         print()
         plt.imshow(x_test[n], cmap=plt.cm.binary)
         plt.show()

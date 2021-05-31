@@ -24,7 +24,7 @@
 На вход будем подавать изображения с БД MNIST.
 
 \begin{lstlisting}[language=Python,]
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    (x_train, y_train), (x_test, y_test) = tensorflow.keras.datasets.mnist.load_data()
 \end{lstlisting}
 
 Где <<\verb|x_train|>> - изображения цифр обучающей выборки.
@@ -48,11 +48,10 @@
 Моделируем сеть библиотекой Keras.
 
 \begin{lstlisting}[language=Python,]
-    model = keras.Sequential([
-        Flatten(input_shape=(28, 28, 1)),
-        Dense(128, activation='relu'),
-        Dense(10, activation='softmax')
-    ])
+    model = tensorflow.keras.Sequential([
+        tensorflow.keras.layers.Flatten(input_shape=(28, 28, 1)),
+        tensorflow.keras.layers.Dense(128, activation='relu'),
+        tensorflow.keras.layers.Dense(10, activation='softmax')  ])
 \end{lstlisting}
 
 \newpage
