@@ -25,6 +25,7 @@ for img, label in train[0].take(10):
     matplotlib.pyplot.imshow(img)
     class_in_img = 'Dog' if label else 'Cat'
     matplotlib.pyplot.title(class_in_img)
+matplotlib.pyplot.show()
 
 SIZE = 224
 def resize_image(img, label):
@@ -71,6 +72,7 @@ for i in range(len(list_img_path)):
     matplotlib.pyplot.figure()
     matplotlib.pyplot.imshow(img)
     matplotlib.pyplot.title(f'{path}\n{pred_label} {prediction}')
+    matplotlib.pyplot.show()
 
 model.fit(train_batches, epochs=1)
 
@@ -85,6 +87,7 @@ for i in range(len(list_img_path)):
     matplotlib.pyplot.figure()
     matplotlib.pyplot.imshow(img)
     matplotlib.pyplot.title(f'{path}\n{pred_label} {prediction}')
+    matplotlib.pyplot.show()
 
 model.fit(train_batches, epochs=1)
 
@@ -99,3 +102,4 @@ for i in range(len(list_img_path)):
     matplotlib.pyplot.figure()
     matplotlib.pyplot.imshow(img)
     matplotlib.pyplot.title(f'{path}\n{pred_label} {prediction}')
+    matplotlib.pyplot.show()
