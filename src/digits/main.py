@@ -4,27 +4,24 @@
 # Нам нужен CUDA для GPU TensorFlow
 # Чтобы не выводились предупреждения при запуске программы
 # пропишем две строчки:
-#import os
-#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
 
-import numpy as np
+import numpy
 import matplotlib.pyplot as plt
 import tensorflow
-from tensorflow.keras.datasets import mnist
-from tensorflow import keras
-from tensorflow.keras.layers import Dense, Flatten
 
 print(f'TensorFlow verion : {tensorflow.__version__}')
-print(f'Keras verion      : {keras.__version__}')
+print(f'Keras verion      : {tensorflow.keras.__version__}')
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+(x_train, y_train), (x_test, y_test) = tensorflow.keras.datasets.mnist.load_data()
 
 # стандартизация входных данных
 x_train = x_train / 255
 x_test = x_test / 255
 
-y_train_cat = keras.utils.to_categorical(y_train, 10)
-y_test_cat = keras.utils.to_categorical(y_test, 10)
+y_train_cat = tensorflow.keras.utils.to_categorical(y_train, 10)
+y_test_cat = tensorflow.keras.utils.to_categorical(y_test, 10)
 
 # отображение первых 20*24=480 изображений из обучающей выборки
 plt.figure(figsize=(10,14)) # размер в дюймах
@@ -45,23 +42,23 @@ plt.show()                  # печатаем картинку в окно
 # Пока мы ничего не знаем о сверточной нс,
 # поэтому будем использовать обычную нейронную сеть
 # Создаем модель нейронной сети
-model = keras.Sequential([
+model = tensorflow.keras.Sequential([
     # матрица 28 пикселей на 28 пикселей = 784 входных слоёв
     # 28x28 + 1 входной нейрон bias = 785
     # Данный слой преобразует 2D-изображение размером 28х28 пикселей
     #(на каждый пиксель приходится 1 байт для оттенков серого)
     # в 1D-массив состоящий из 784 пикселей.
-    Flatten(input_shape=(28, 28, 1)),
+    tensorflow.keras.layers.Flatten(input_shape=(28, 28, 1)),
     # 0 весов
     # Скрытый слой из 128 нейронов с функцией активации ReLu
     # Не обязательно брать 128 и один скрытый слой.
     # Скрытых слоев может быть хоть два
     # Нейронов может быть хоть 50
-    Dense(128, activation='relu'),
+    tensorflow.keras.layers.Dense(128, activation='relu'),
     # (784 нейронов + 1 bias) * 128 нейронов = 100480 весов
     # Выходной слой из 10 нейронов с функцией активации softmax
     # Нейронны класифицируют [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    Dense(10, activation='softmax')
+    tensorflow.keras.layers.Dense(10, activation='softmax')
     # (128 нейронов + 1 bias) * 10 нейронов = 1290 весов
 ])
 
@@ -77,7 +74,8 @@ print('Информацию о модели распечатана\n')
 
 print('Компилируем модель нейронной сети')
 model.compile(
-    optimizer='adam',                   # оптимизация по adam
+    #optimizer='adam',                   # оптимизация по adam
+    optimizer=tensorflow.keras.optimizers.Adam(0.001),
     loss='categorical_crossentropy',    # функция потерь - категориальная кросс-энтропия
     metrics=['accuracy']                # метрика. Выводит в консоль процент правильно распозныных цифр
 )
@@ -99,14 +97,14 @@ model.fit(
 model.evaluate(x_test, y_test_cat)
 
 def print_info_about_image_by_index(n):
-  x = np.expand_dims(
+  x = numpy.expand_dims(
       x_test[n],
       axis=0      # новая ось axis со значением 0
   )
 
   # Метод model.predict возвращает список списков (массив массивов)
   res = model.predict(x)
-  plt.title(f'Распознанная цифра : {np.argmax(res)}')
+  plt.title(f'Распознанная цифра : {numpy.argmax(res)}')
   plt.imshow(x_test[n], cmap=plt.cm.binary)
   plt.show()
 
@@ -122,7 +120,7 @@ for i in range(0, 10):
 
 # Распознавание всей тестовой выборки
 pred = model.predict(x_test)
-pred = np.argmax(pred, axis=1)
+pred = numpy.argmax(pred, axis=1)
 print(f'Цифры              : {pred}')
 print(f'Размерность массива: {pred.shape}')
 print(f'Что предсказала НС : {pred[:37]}')
@@ -135,9 +133,9 @@ p_false = pred[~mask]
 print(f'Размерность x_false : {x_false.shape}')
 print(f'Размерность p_false : {p_false.shape}')
 
-# Вывод первых 243 неверных результатов
+# Вывод неверных результатов
 plt.figure(figsize=(10,10)) # размер в дюймах
-for i in range(243):
+for i in range(p_false.shape[0]):
     plt.subplot(13,20,i+1)  # расположить картинки в 13x20
     plt.xticks([])          # не выводить оси по x
     plt.yticks([])          # не выводить оси по y
