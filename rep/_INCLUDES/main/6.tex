@@ -1,1 +1,24 @@
 \section{Заключение}
+
+Нейронные сети, технологии прошлого века, меняют работу целых отраслей. Одни возмодности нейронной сети поражают, а другие заставляют задуматься в их пользу как специалистов.
+
+В результате курсового проекта была разработана нейронная сеть,
+которая распознает рукописные цифры базы данных MNIST,
+написанная на tensorflow,
+которая использует надстройку Keras.
+
+Архитектура сети представлена на листинге.
+
+\begin{lstlisting}[language=Python]
+    model = tensorflow.keras.Sequential([
+        tensorflow.keras.layers.Flatten(input_shape=(28, 28, 1)),
+        tensorflow.keras.layers.Dense(128, activation='relu'),
+        tensorflow.keras.layers.Dense(10, activation='softmax')
+    ])
+
+    model.compile(
+        optimizer=tensorflow.keras.optimizers.Adam(0.001),
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
+\end{lstlisting}
