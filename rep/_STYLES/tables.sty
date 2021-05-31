@@ -1,0 +1,6 @@
+%= = = = = Нумерация таблицы = = = = =
+\numberwithin{table}{section} % обнулять счётчик рисунка при каждой section
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}} % Таблица НомерСекции.НомерТаблицы
+
+%= = = = = Модификация таблицы = = = = =
+\usepackage{hhline} % чтобы менять \hline для каждой ячейки

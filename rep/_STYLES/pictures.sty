@@ -1,2 +1,3 @@
-%\renewcommand{\thefigure}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{figure}}
-\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+%= = = = = Нумерация рисунка = = = = =
+\numberwithin{figure}{section} % обнулять счётчик рисунка при каждой section
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}} % Рисунок НомерСекции.НомерРисунка
