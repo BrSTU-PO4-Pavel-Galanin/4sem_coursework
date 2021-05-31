@@ -10,7 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #ignore
 import numpy
 import tensorflow
 import tensorflow_datasets
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot
 #from google.colab import files # для загрузки файлов в Google Colabs
 
 train, _ = tensorflow_datasets.load(
@@ -21,10 +21,10 @@ train, _ = tensorflow_datasets.load(
 )
 
 for img, label in train[0].take(10):
-    plt.figure()
-    plt.imshow(img)
+    matplotlib.pyplot.figure()
+    matplotlib.pyplot.imshow(img)
     class_in_img = 'Dog' if label else 'Cat'
-    plt.title(class_in_img)
+    matplotlib.pyplot.title(class_in_img)
 
 SIZE = 224
 def resize_image(img, label):
@@ -68,9 +68,9 @@ for i in range(len(list_img_path)):
     img_expended = numpy.expand_dims(img_resized, axis=0)
     prediction = model.predict(img_expended)[0][0]
     pred_label = 'Cat' if prediction < 0.5 else 'Dog'
-    plt.figure()
-    plt.imshow(img)
-    plt.title(f'{path}\n{pred_label} {prediction}')
+    matplotlib.pyplot.figure()
+    matplotlib.pyplot.imshow(img)
+    matplotlib.pyplot.title(f'{path}\n{pred_label} {prediction}')
 
 model.fit(train_batches, epochs=1)
 
@@ -82,9 +82,9 @@ for i in range(len(list_img_path)):
     img_expended = numpy.expand_dims(img_resized, axis=0)
     prediction = model.predict(img_expended)[0][0]
     pred_label = 'Cat' if prediction < 0.5 else 'Dog'
-    plt.figure()
-    plt.imshow(img)
-    plt.title(f'{path}\n{pred_label} {prediction}')
+    matplotlib.pyplot.figure()
+    matplotlib.pyplot.imshow(img)
+    matplotlib.pyplot.title(f'{path}\n{pred_label} {prediction}')
 
 model.fit(train_batches, epochs=1)
 
@@ -96,6 +96,6 @@ for i in range(len(list_img_path)):
     img_expended = numpy.expand_dims(img_resized, axis=0)
     prediction = model.predict(img_expended)[0][0]
     pred_label = 'Cat' if prediction < 0.5 else 'Dog'
-    plt.figure()
-    plt.imshow(img)
-    plt.title(f'{path}\n{pred_label} {prediction}')
+    matplotlib.pyplot.figure()
+    matplotlib.pyplot.imshow(img)
+    matplotlib.pyplot.title(f'{path}\n{pred_label} {prediction}')
